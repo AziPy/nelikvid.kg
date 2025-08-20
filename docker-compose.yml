@@ -1,14 +1,12 @@
 version: "3.9"
 
 services:
-  back:
+  backend:
     build: .
     container_name: backend
     ports:
       - "5000:5000"
-    volumes:
-      - .:/app
     environment:
       - PYTHONUNBUFFERED=1
+      - ENV=production
     restart: unless-stopped
-
