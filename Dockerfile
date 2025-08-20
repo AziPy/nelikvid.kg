@@ -21,6 +21,7 @@
 #CMD ["poetry", "run", "python", "app.py"]
 
 # Используем официальный образ Python
+# Используем официальный образ Python
 FROM python:3.12-slim
 
 # Рабочая директория
@@ -34,12 +35,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Устанавливаем Poetry
 RUN pip install --no-cache-dir poetry
 
-# Копируем только файлы зависимостей
-COPY pyproject.toml poetry.lock* ./
+# Копируем файлы зависимостей
+COPY pyproject.toml ./
+COPY poetry.lock* ./
 
-# Настройка Poetry и установка зависимостей (без root-пакета)
+# Настройка Poetry и установка зависимостей
 RUN poetry config virtualenvs.create false \
-    && poetry install --no-root --no-interaction --no-ansi
+    && poetry install --no-interaction --no-ansi
 
 # Копируем весь проект
 COPY . .
